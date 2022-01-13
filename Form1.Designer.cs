@@ -34,8 +34,8 @@
             this.tsmiAbrir = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPanel = new System.Windows.Forms.TabControl();
             this.tp1RawData = new System.Windows.Forms.TabPage();
-            this.tp2Graphs = new System.Windows.Forms.TabPage();
             this.dgvExcelInfo = new System.Windows.Forms.DataGridView();
+            this.tp2Graphs = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
             this.tabPanel.SuspendLayout();
             this.tp1RawData.SuspendLayout();
@@ -53,7 +53,7 @@
             this.tsmiArchivo});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(961, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(771, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -68,7 +68,7 @@
             // tsmiAbrir
             // 
             this.tsmiAbrir.Name = "tsmiAbrir";
-            this.tsmiAbrir.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAbrir.Size = new System.Drawing.Size(100, 22);
             this.tsmiAbrir.Text = "Abrir";
             this.tsmiAbrir.Click += new System.EventHandler(this.tsmiAbrir_Click);
             // 
@@ -93,6 +93,15 @@
             this.tp1RawData.Text = "Raw Data";
             this.tp1RawData.UseVisualStyleBackColor = true;
             // 
+            // dgvExcelInfo
+            // 
+            this.dgvExcelInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvExcelInfo.Location = new System.Drawing.Point(0, 3);
+            this.dgvExcelInfo.Name = "dgvExcelInfo";
+            this.dgvExcelInfo.RowTemplate.Height = 25;
+            this.dgvExcelInfo.Size = new System.Drawing.Size(762, 380);
+            this.dgvExcelInfo.TabIndex = 2;
+            // 
             // tp2Graphs
             // 
             this.tp2Graphs.Location = new System.Drawing.Point(4, 24);
@@ -103,25 +112,16 @@
             this.tp2Graphs.Text = "Graphs";
             this.tp2Graphs.UseVisualStyleBackColor = true;
             // 
-            // dgvExcelInfo
-            // 
-            this.dgvExcelInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvExcelInfo.Location = new System.Drawing.Point(0, 3);
-            this.dgvExcelInfo.Name = "dgvExcelInfo";
-            this.dgvExcelInfo.RowTemplate.Height = 25;
-            this.dgvExcelInfo.Size = new System.Drawing.Size(762, 380);
-            this.dgvExcelInfo.TabIndex = 2;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(961, 492);
+            this.ClientSize = new System.Drawing.Size(771, 449);
             this.Controls.Add(this.tabPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "School Data Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabPanel.ResumeLayout(false);
