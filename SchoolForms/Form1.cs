@@ -34,32 +34,32 @@ namespace SchoolForms
                     dgvExcelInfo.DataSource = dsExcel.Tables[0];
 
                     // TODO: Create function that requires a DataSet as a parameter and that returns a string regarding the status of the operation
-                    System.Data.DataSet dsGraph = dsExcel;
+                    DataTable dtGraph = dsExcel.Tables[0];
                     int NombresIdx = -1;
                     int CalificacionIdx = -1;
-                    double[] values    = new double[dsGraph.Tables[0].Rows.Count];
-                    double[] positions = new double[dsGraph.Tables[0].Rows.Count];
-                    string[] labels    = new string[dsGraph.Tables[0].Rows.Count];
-                    for (int colIdx = 0; colIdx < dsGraph.Tables[0].Columns.Count; colIdx++)
+                    double[] values    = new double[dtGraph.Rows.Count];
+                    double[] positions = new double[dtGraph.Rows.Count];
+                    string[] labels    = new string[dtGraph.Rows.Count];
+                    for (int colIdx = 0; colIdx < dtGraph.Columns.Count; colIdx++)
                     {
-                        if (dsGraph.Tables[0].Columns[colIdx].ColumnName == "Nombres")
+                        if (dtGraph.Columns[colIdx].ColumnName == "Nombres")
                         {
                             NombresIdx = colIdx;
                         }
-                        if (dsGraph.Tables[0].Columns[colIdx].ColumnName == "Calificacion")
+                        if (dtGraph.Columns[colIdx].ColumnName == "Calificacion")
                         {
                             CalificacionIdx = colIdx;
                         }
                     }
-                    for (int rowIdx = 0; rowIdx < dsGraph.Tables[0].Rows.Count; rowIdx++)
+                    for (int rowIdx = 0; rowIdx < dtGraph.Rows.Count; rowIdx++)
                     {
-                        if ( (NombresIdx != -1) || (CalificacionIdx != -1) )
+                        if ( (NombresIdx == -1) || (CalificacionIdx == -1) )
                         {
                             //return error message since we didn't find two KEY columns for this test
                         }
                         positions[rowIdx] = rowIdx;
-                        labels[rowIdx] = (string) dsGraph.Tables[0].Rows[rowIdx].ItemArray[NombresIdx]!;
-                        values[rowIdx] = (double) dsGraph.Tables[0].Rows[rowIdx].ItemArray[CalificacionIdx]!;
+                        labels[rowIdx] = (string) dtGraph.Rows[rowIdx].ItemArray[NombresIdx]!;
+                        values[rowIdx] = (double) dtGraph.Rows[rowIdx].ItemArray[CalificacionIdx]!;
                     }
 
                     frmGraph.Plot.AddBar(values, positions);
