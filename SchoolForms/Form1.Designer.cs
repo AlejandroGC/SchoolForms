@@ -36,10 +36,12 @@
             this.tp1RawData = new System.Windows.Forms.TabPage();
             this.dgvExcelInfo = new System.Windows.Forms.DataGridView();
             this.tp2Graphs = new System.Windows.Forms.TabPage();
+            this.frmGraph = new ScottPlot.FormsPlot();
             this.menuStrip1.SuspendLayout();
             this.tabPanel.SuspendLayout();
             this.tp1RawData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvExcelInfo)).BeginInit();
+            this.tp2Graphs.SuspendLayout();
             this.SuspendLayout();
             // 
             // ofdAbrir
@@ -104,6 +106,7 @@
             // 
             // tp2Graphs
             // 
+            this.tp2Graphs.Controls.Add(this.frmGraph);
             this.tp2Graphs.Location = new System.Drawing.Point(4, 24);
             this.tp2Graphs.Name = "tp2Graphs";
             this.tp2Graphs.Padding = new System.Windows.Forms.Padding(3);
@@ -111,6 +114,15 @@
             this.tp2Graphs.TabIndex = 1;
             this.tp2Graphs.Text = "Graphs";
             this.tp2Graphs.UseVisualStyleBackColor = true;
+            // 
+            // fptGraph
+            // 
+            this.frmGraph.Enabled = false;
+            this.frmGraph.Location = new System.Drawing.Point(9, 3);
+            this.frmGraph.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.frmGraph.Name = "fptGraph";
+            this.frmGraph.Size = new System.Drawing.Size(745, 379);
+            this.frmGraph.TabIndex = 4;
             // 
             // Form1
             // 
@@ -127,6 +139,7 @@
             this.tabPanel.ResumeLayout(false);
             this.tp1RawData.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvExcelInfo)).EndInit();
+            this.tp2Graphs.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,5 +155,6 @@
         private TabPage tp1RawData;
         private DataGridView dgvExcelInfo;
         private TabPage tp2Graphs;
+        private ScottPlot.FormsPlot frmGraph;
     }
 }
