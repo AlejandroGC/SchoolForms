@@ -1,6 +1,4 @@
 using Excel;
-using ScottPlot;
-using ScottPlot.Plottable;
 using System.Data;
 
 namespace SchoolForms
@@ -24,7 +22,7 @@ namespace SchoolForms
                 excelDataReader = ExcelReaderFactory.CreateBinaryReader(fileStream);
                 excelDataReader.IsFirstRowAsColumnNames = true;
                 dsExcel = excelDataReader.AsDataSet();
-
+                dsExcel.Tables[0].Columns.Add("Clave", typeof(string));
                 if (dsExcel == null)
                 {
                     // TODO: throw an error/warning letting the user know the content is not in the expected format

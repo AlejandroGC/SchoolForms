@@ -55,7 +55,7 @@
             this.tsmiArchivo});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(771, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(860, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -81,7 +81,7 @@
             this.tabPanel.Location = new System.Drawing.Point(0, 27);
             this.tabPanel.Name = "tabPanel";
             this.tabPanel.SelectedIndex = 0;
-            this.tabPanel.Size = new System.Drawing.Size(778, 416);
+            this.tabPanel.Size = new System.Drawing.Size(859, 416);
             this.tabPanel.TabIndex = 3;
             // 
             // tp1RawData
@@ -90,7 +90,7 @@
             this.tp1RawData.Location = new System.Drawing.Point(4, 24);
             this.tp1RawData.Name = "tp1RawData";
             this.tp1RawData.Padding = new System.Windows.Forms.Padding(3);
-            this.tp1RawData.Size = new System.Drawing.Size(770, 388);
+            this.tp1RawData.Size = new System.Drawing.Size(851, 388);
             this.tp1RawData.TabIndex = 0;
             this.tp1RawData.Text = "Raw Data";
             this.tp1RawData.UseVisualStyleBackColor = true;
@@ -101,7 +101,7 @@
             this.dgvExcelInfo.Location = new System.Drawing.Point(0, 3);
             this.dgvExcelInfo.Name = "dgvExcelInfo";
             this.dgvExcelInfo.RowTemplate.Height = 25;
-            this.dgvExcelInfo.Size = new System.Drawing.Size(762, 380);
+            this.dgvExcelInfo.Size = new System.Drawing.Size(848, 380);
             this.dgvExcelInfo.TabIndex = 2;
             // 
             // tp2Graphs
@@ -110,25 +110,25 @@
             this.tp2Graphs.Location = new System.Drawing.Point(4, 24);
             this.tp2Graphs.Name = "tp2Graphs";
             this.tp2Graphs.Padding = new System.Windows.Forms.Padding(3);
-            this.tp2Graphs.Size = new System.Drawing.Size(770, 388);
+            this.tp2Graphs.Size = new System.Drawing.Size(851, 388);
             this.tp2Graphs.TabIndex = 1;
             this.tp2Graphs.Text = "Graphs";
             this.tp2Graphs.UseVisualStyleBackColor = true;
             // 
-            // fptGraph
+            // frmGraph
             // 
             this.frmGraph.Enabled = false;
             this.frmGraph.Location = new System.Drawing.Point(9, 3);
             this.frmGraph.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.frmGraph.Name = "fptGraph";
-            this.frmGraph.Size = new System.Drawing.Size(745, 379);
+            this.frmGraph.Name = "frmGraph";
+            this.frmGraph.Size = new System.Drawing.Size(835, 379);
             this.frmGraph.TabIndex = 4;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 449);
+            this.ClientSize = new System.Drawing.Size(860, 449);
             this.Controls.Add(this.tabPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
