@@ -5,34 +5,31 @@ namespace SchoolForms
 {
     public partial class Form1 : Form
     {
+        ExcelHandler ExcelHandler;
         public Form1()
         {
             InitializeComponent();
+            ExcelHandler = new ExcelHandler();
         }
 
         private void tsmiAbrir_Click(object sender, EventArgs e)
         {
-            System.Data.DataSet dsExcel;
-            FileStream fileStream;
-            IExcelDataReader excelDataReader;
+            string processStatus;
 
             if (ofdAbrir.ShowDialog() == DialogResult.OK)
             {
-                fileStream = File.Open(ofdAbrir.FileName, FileMode.Open, FileAccess.Read);
-                excelDataReader = ExcelReaderFactory.CreateBinaryReader(fileStream);
-                excelDataReader.IsFirstRowAsColumnNames = true;
-                dsExcel = excelDataReader.AsDataSet();
-                dsExcel.Tables[0].Columns.Add("Clave", typeof(string));
-                if (dsExcel == null)
+                processStatus = ExcelHandler.LoadExcelFile(ofdAbrir.FileName);
+
+                if (processStatus != "Success")
                 {
                     // TODO: throw an error/warning letting the user know the content is not in the expected format
                 }
                 else
                 {
-                    dgvExcelInfo.DataSource = dsExcel.Tables[0];
+                    dgvExcelInfo.DataSource = ExcelHandler.getDataTable();
 
                     // TODO: Create function that requires a DataSet as a parameter and that returns a string regarding the status of the operation
-                    DataTable dtGraph = dsExcel.Tables[0];
+                    DataTable dtGraph = ExcelHandler.getDataTable();
                     int NombresIdx = -1;
                     int CalificacionIdx = -1;
                     double[] values    = new double[dtGraph.Rows.Count];
