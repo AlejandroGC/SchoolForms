@@ -1,15 +1,13 @@
 ﻿using Excel;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SchoolForms
 {
     public class ExcelHandler
     {
+        /// <summary>
+        /// DataTable containing the extracted information from a read 97-03 Excel Workbook File [*.xls]
+        /// </summary>
         DataTable _excelDataTable;
         public ExcelHandler()
         {
@@ -47,7 +45,7 @@ namespace SchoolForms
         }
 
         /// <summary>
-        /// setter of DataTable populated upon loading an Excel File with the function LoadExcelFile
+        /// getter of DataTable populated upon loading an Excel File with the function LoadExcelFile
         /// </summary>
         /// <returns>Returns the DataTable loaded with LoadExcelFile. Returns Null if that function has not been called beforehand</returns>
         public DataTable getDataTable()
