@@ -29,16 +29,16 @@ namespace SchoolForms
             FileStream fileStream;
             IExcelDataReader excelDataReader;
 
-            fileStream = File.Open(FilePath, FileMode.Open, FileAccess.Read);
+            fileStream      = File.Open(FilePath, FileMode.Open, FileAccess.Read);
             excelDataReader = ExcelReaderFactory.CreateBinaryReader(fileStream);
             excelDataReader.IsFirstRowAsColumnNames = true;
-            dsExcel = excelDataReader.AsDataSet();
+            dsExcel         = excelDataReader.AsDataSet();
             dsExcel.Tables[0].Columns.Add("Clave", typeof(string));
             _excelDataTable = dsExcel.Tables[0];
 
             if (_excelDataTable == null)
             {
-                return "Error Message";
+                return "Error";
             }
             else
             {
