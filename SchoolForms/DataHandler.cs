@@ -2,54 +2,71 @@
 
 namespace SchoolForms
 {
-    public class GraphicsHandler
+    public class DataHandler
     {
-        int _idxColumnLabels = -1;
-        int _idxColumnValues = -1;
-        string[] _labels     = { };
-        double[] _positions  = { };
-        double[] _values     = { };
-        public GraphicsHandler()
+        int _idxColumnLabels;
+        int _idxColumnValues;
+        string[] _labels;
+        double[] _positions;
+        double[] _values;
+        DataTable _dtGraph;
+        public DataHandler(DataTable dtGraph, string columnNameLabels, string columnNameValues)
         {
+            _dtGraph = dtGraph;
+            _labels    = Array.Empty<string>();
+            _positions = Array.Empty<double>();
+            _values    = Array.Empty<double>();
+            _idxColumnLabels = -1;
+            _idxColumnValues = -1;
 
-        }
-        private void getColumnReferences(DataTable dtGraph, string columnNameLabels, string columnNameValues)
-        {
-            for (int colIdx = 0; colIdx < dtGraph.Columns.Count; colIdx++)
+            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
             {
-                if (dtGraph.Columns[colIdx].ColumnName == columnNameLabels)
+                if (_dtGraph.Columns[colIdx].ColumnName == columnNameLabels)
                 {
                     _idxColumnLabels = colIdx;
                 }
-                if (dtGraph.Columns[colIdx].ColumnName == columnNameValues)
+                if (_dtGraph.Columns[colIdx].ColumnName == columnNameValues)
                 {
                     _idxColumnValues = colIdx;
                 }
             }
         }
+
         /// <summary>
         /// Load DataTable and two column references and sets the corresponding values that will be needed
         /// for the ScottPlot Plugin [Used for Graphics]
         /// </summary>
-        /// <param name="dtGraph">DataTable containing the information expected to graphicate</param>
+        /// <param name="_dtGraph">DataTable containing the information expected to graphicate</param>
         /// <param name="columnNameLabels">Column that will be used for the labes/names in the Graphs</param>
         /// <param name="columnNameValues">Column that will be used for the raw data to be represented in the Graphs</param>
         /// <returns> status message of the operation upon finalization </returns>
-        public string LoadGraphicsData(DataTable dtGraph, string columnNameLabels, string columnNameValues)
+        public string LoadGraphicsData()
         {
-            _values    = new double[dtGraph.Rows.Count];
-            _positions = new double[dtGraph.Rows.Count];
-            _labels    = new string[dtGraph.Rows.Count];
-            getColumnReferences(dtGraph, columnNameLabels, columnNameValues);
-            for (int rowIdx = 0; rowIdx < dtGraph.Rows.Count; rowIdx++)
+            _values    = new double[_dtGraph.Rows.Count];
+            _positions = new double[_dtGraph.Rows.Count];
+            _labels    = new string[_dtGraph.Rows.Count];
+            for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
             {
                 if ((_idxColumnLabels == -1) || (_idxColumnValues == -1))
                 {
                     return "Error: One or more of the specified columns was not found";
                 }
                 _positions[rowIdx] = rowIdx;
-                _labels[rowIdx] = (string)dtGraph.Rows[rowIdx].ItemArray[_idxColumnLabels]!;
-                _values[rowIdx] = (double)dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+                _labels[rowIdx] = (string)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnLabels]!;
+                _values[rowIdx] = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+            }
+            return "Success";
+        }
+
+        public string getBestStudentsName()
+        {
+            for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
+            {
+                if ((_idxColumnLabels == -1) || (_idxColumnValues == -1))
+                {
+                    return "Error: One or more of the specified columns was not found";
+                }
+
             }
             return "Success";
         }
