@@ -170,7 +170,7 @@ namespace SchoolForms
             {
                 if (letter.ToUpper() == keyGenAlphabet.Substring(i, 1))
                 {
-                    shiftValue = ((shiftValue + i) % keyGenAlphabet.Length);
+                    shiftValue = ((i - shiftValue) + keyGenAlphabet.Length) % keyGenAlphabet.Length;
                 }
             }
             return keyGenAlphabet.Substring(shiftValue, 1);
