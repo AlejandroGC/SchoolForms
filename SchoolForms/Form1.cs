@@ -38,18 +38,25 @@ namespace SchoolForms
                 // in the expected format
                 return;
             }
-            gphValues    = DataHandler.getGraphValues();
-            gphPositions = DataHandler.getGraphPositions();
-            gphLabels    = DataHandler.getGraphLabels();
+            gphValues    = DataHandler.GetGraphValues();
+            gphPositions = DataHandler.GetGraphPositions();
+            gphLabels    = DataHandler.GetGraphLabels();
 
             frmGraph.Plot.AddBar(gphValues, gphPositions);
             frmGraph.Plot.XTicks(gphPositions, gphLabels);
             frmGraph.Plot.SetAxisLimits(yMin: 0);
             frmGraph.Refresh();
 
-            txtBestStudent.Text  = DataHandler.getBestStudentName(fullNameColumns);
-            txtWorstStudent.Text = DataHandler.getWorstStudentName(fullNameColumns);
-            txtAverage.Text      = DataHandler.getValuesAverage().ToString();
+            txtBestStudent.Text  = DataHandler.GetBestStudentName(fullNameColumns);
+            txtWorstStudent.Text = DataHandler.GetWorstStudentName(fullNameColumns);
+            txtAverage.Text      = DataHandler.GetValuesAverage().ToString();
+
+            nudKeyIndexGenerator_ValueChanged(sender,e);
+        }
+
+        private void nudKeyIndexGenerator_ValueChanged(object sender, EventArgs e)
+        {
+            int algo = (int)nudKeyIndexGenerator.Value;
         }
     }
 }

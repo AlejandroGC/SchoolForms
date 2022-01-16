@@ -203,6 +203,7 @@
             this.nudKeyIndexGenerator.Name = "nudKeyIndexGenerator";
             this.nudKeyIndexGenerator.Size = new System.Drawing.Size(130, 23);
             this.nudKeyIndexGenerator.TabIndex = 18;
+            this.nudKeyIndexGenerator.ValueChanged += new System.EventHandler(this.nudKeyIndexGenerator_ValueChanged);
             // 
             // label4
             // 
