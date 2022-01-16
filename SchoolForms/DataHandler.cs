@@ -6,16 +6,22 @@ namespace SchoolForms
     {
         int _idxColumnLabels;
         int _idxColumnValues;
-        string[] _labels;
-        double[] _positions;
-        double[] _values;
+        string[]  _labels;
+        double[]  _positions;
+        double[]  _values;
         DataTable _dtGraph;
+        /// <summary>
+        /// Constructor used to load general purpose values for both the generation of Graphs and for the analysis of Data
+        /// </summary>
+        /// <param name="_dtGraph">DataTable containing the information expected to graphicate</param>
+        /// <param name="columnNameLabels">Column that will be used for the labes/names in the Graphs</param>
+        /// <param name="columnNameValues">Column that will be used for the raw data to be represented in the Graphs</param>
         public DataHandler(DataTable dtGraph, string columnNameLabels, string columnNameValues)
         {
-            _dtGraph = dtGraph;
-            _labels    = Array.Empty<string>();
-            _positions = Array.Empty<double>();
-            _values    = Array.Empty<double>();
+            _dtGraph   = dtGraph;
+            _values    = new double[_dtGraph.Rows.Count];
+            _positions = new double[_dtGraph.Rows.Count];
+            _labels    = new string[_dtGraph.Rows.Count];
             _idxColumnLabels = -1;
             _idxColumnValues = -1;
 
@@ -36,40 +42,55 @@ namespace SchoolForms
         /// Load DataTable and two column references and sets the corresponding values that will be needed
         /// for the ScottPlot Plugin [Used for Graphics]
         /// </summary>
-        /// <param name="_dtGraph">DataTable containing the information expected to graphicate</param>
-        /// <param name="columnNameLabels">Column that will be used for the labes/names in the Graphs</param>
-        /// <param name="columnNameValues">Column that will be used for the raw data to be represented in the Graphs</param>
         /// <returns> status message of the operation upon finalization </returns>
         public string LoadGraphicsData()
         {
-            _values    = new double[_dtGraph.Rows.Count];
-            _positions = new double[_dtGraph.Rows.Count];
-            _labels    = new string[_dtGraph.Rows.Count];
+            if ((_idxColumnLabels == -1) || (_idxColumnValues == -1))
+            {
+                return "Error: One or more of the specified columns was not found";
+            }
             for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
             {
-                if ((_idxColumnLabels == -1) || (_idxColumnValues == -1))
-                {
-                    return "Error: One or more of the specified columns was not found";
-                }
                 _positions[rowIdx] = rowIdx;
-                _labels[rowIdx] = (string)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnLabels]!;
-                _values[rowIdx] = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+                _labels[rowIdx]    = (string)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnLabels]!;
+                _values[rowIdx]    = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
             }
             return "Success";
         }
 
         public string getBestStudentsName()
         {
+            double highestValue = 0;
+            double currentRowValue;
+            string bestStudent = "";
+            string[] fullNameLabels = { "Nombres", "Apellido Materno", "Apellido Paterno" };
+            int[] fullNameLabelsidx = new int[3];
+            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
+            {
+                for (int i = 0; i < fullNameLabels.Length; i++)
+                {
+                    if (fullNameLabels[i] == _dtGraph.Columns[colIdx].ColumnName)
+                    {
+                        fullNameLabelsidx[i] = colIdx;
+                    }
+                }
+            }
             for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
             {
-                if ((_idxColumnLabels == -1) || (_idxColumnValues == -1))
+                currentRowValue = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+                if (highestValue < currentRowValue)
                 {
-                    return "Error: One or more of the specified columns was not found";
+                    highestValue = currentRowValue;
+                    bestStudent = "";
+                    for (int i = 0; i < fullNameLabelsidx.Length; i++)
+                    {
+                        bestStudent += " "+(string)_dtGraph.Rows[rowIdx].ItemArray[fullNameLabelsidx[i]]!;
+                    }
                 }
-
             }
-            return "Success";
+            return bestStudent;
         }
+
         /// <summary>
         /// getter for array _values required for the ScottPlot Plugin [Used for Graphics]
         /// </summary>

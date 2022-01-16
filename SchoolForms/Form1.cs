@@ -11,7 +11,7 @@ namespace SchoolForms
             InitializeComponent();
         }
 
-        private void tsmiAbrir_Click(object sender, EventArgs e)
+        private void tsmiOpen_Click(object sender, EventArgs e)
         {
             string processStatus;
             double[] gphValues;
@@ -45,6 +45,8 @@ namespace SchoolForms
             frmGraph.Plot.XTicks(gphPositions, gphLabels);
             frmGraph.Plot.SetAxisLimits(yMin: 0);
             frmGraph.Refresh();
+
+            txtBestStudent.Text = DataHandler.getBestStudentsName();
         }
     }
 }
