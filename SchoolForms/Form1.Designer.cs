@@ -191,18 +191,18 @@
             // 
             this.nudKeyIndexGenerator.Location = new System.Drawing.Point(865, 74);
             this.nudKeyIndexGenerator.Maximum = new decimal(new int[] {
-            30,
+            26,
             0,
             0,
             0});
-            this.nudKeyIndexGenerator.Minimum = new decimal(new int[] {
-            30,
-            0,
-            0,
-            -2147483648});
             this.nudKeyIndexGenerator.Name = "nudKeyIndexGenerator";
             this.nudKeyIndexGenerator.Size = new System.Drawing.Size(130, 23);
             this.nudKeyIndexGenerator.TabIndex = 18;
+            this.nudKeyIndexGenerator.Value = new decimal(new int[] {
+            24,
+            0,
+            0,
+            0});
             this.nudKeyIndexGenerator.ValueChanged += new System.EventHandler(this.nudKeyIndexGenerator_ValueChanged);
             // 
             // label4

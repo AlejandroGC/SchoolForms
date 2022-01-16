@@ -6,11 +6,18 @@ namespace SchoolForms
     {
         int _idxColumnLabels;
         int _idxColumnValues;
+        string keyGenAlphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
         string[]  _labels;
         double[]  _positions;
         double[]  _values;
         DataTable _dtGraph;
-
+        enum KeyGenColumn
+        {
+            Undefined = -1,
+            Nombre = 0,
+            ApellidoMaterno = 1,
+            FechaNacimiento = 2
+        }
         /// <summary>
         /// Constructor used to load general purpose values for both the generation of Graphs and for the analysis of Data
         /// </summary>
@@ -57,21 +64,6 @@ namespace SchoolForms
                 _values[rowIdx]    = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
             }
             return "Success";
-        }
-        private int[] FindColumnIndexes(string[] fullNameColumns)
-        {
-            int[] idxFullNameColumns = new int[fullNameColumns.Length];
-            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
-            {
-                for (int i = 0; i < fullNameColumns.Length; i++)
-                {
-                    if (fullNameColumns[i] == _dtGraph.Columns[colIdx].ColumnName)
-                    {
-                        idxFullNameColumns[i] = colIdx;
-                    }
-                }
-            }
-            return idxFullNameColumns;
         }
         public string GetBestStudentName(string[] fullNameColumns)
         {
@@ -126,7 +118,22 @@ namespace SchoolForms
             }
             return ( summatoryValues / _dtGraph.Rows.Count );
         }
+        public string GetKeyGenValues(DataRow Row, string[] keyGenColumns, int shiftValue)
+        {
+            int[] idxKeyGenColumns;
+            string encodedResult = "";
+            idxKeyGenColumns = FindColumnIndexes(keyGenColumns);
+            string name         = (string) Row.ItemArray[ idxKeyGenColumns[ (int) KeyGenColumn.Nombre] ]!;
+            string mthrLastName = (string) Row.ItemArray[ idxKeyGenColumns[ (int) KeyGenColumn.ApellidoMaterno] ]!;
+            string birthDate    = (string) Row.ItemArray[ idxKeyGenColumns[ (int) KeyGenColumn.FechaNacimiento] ]!;
 
+            encodedResult += getEncodedLetter(name.Substring(0, 1), shiftValue);
+            encodedResult += getEncodedLetter(name.Substring(1, 1), shiftValue);
+            encodedResult += getEncodedLetter(mthrLastName.Substring(mthrLastName.Length - 2, 1), shiftValue);
+            encodedResult += getEncodedLetter(mthrLastName.Substring(mthrLastName.Length - 1, 1), shiftValue);
+            encodedResult += getAge(birthDate);
+            return encodedResult;
+        }
         /// <summary>
         /// getter for array _values required for the ScottPlot Plugin [Used for Graphics]
         /// </summary>
@@ -142,5 +149,36 @@ namespace SchoolForms
         /// </summary>
         /// <returns>double[] _positions array</returns>
         public double[] GetGraphPositions() { return _positions; }
+        private int[] FindColumnIndexes(string[] fullNameColumns)
+        {
+            int[] idxFullNameColumns = new int[fullNameColumns.Length];
+            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
+            {
+                for (int i = 0; i < fullNameColumns.Length; i++)
+                {
+                    if (fullNameColumns[i] == _dtGraph.Columns[colIdx].ColumnName)
+                    {
+                        idxFullNameColumns[i] = colIdx;
+                    }
+                }
+            }
+            return idxFullNameColumns;
+        }
+        private string getEncodedLetter(string letter, int shiftValue)
+        {
+            for (int i = 0; i < keyGenAlphabet.Length; i++)
+            {
+                if (letter.ToUpper() == keyGenAlphabet.Substring(i, 1))
+                {
+                    shiftValue = ((shiftValue + i) % keyGenAlphabet.Length);
+                }
+            }
+            return keyGenAlphabet.Substring(shiftValue, 1);
+        }
+        private string getAge(string birthDate)
+        {
+            DateTime bday = DateTime.Parse(birthDate);
+            return Math.Floor((DateTime.Now - bday).TotalDays / 365).ToString();
+        }
     }
 }

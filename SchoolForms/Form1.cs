@@ -6,6 +6,9 @@ namespace SchoolForms
     {
         ExcelHandler ExcelHandler;
         DataHandler DataHandler;
+        string[] fullNameColumns = { "Nombres", "Apellido Materno", "Apellido Paterno" };
+        string[] keyGenColumns   = { "Nombres", "Apellido Materno", "Fecha de Nacimiento" };
+        bool tableLoaded = false;
         public Form1()
         {
             InitializeComponent();
@@ -14,7 +17,6 @@ namespace SchoolForms
         private void tsmiOpen_Click(object sender, EventArgs e)
         {
             string processStatus;
-            string[] fullNameColumns = { "Nombres", "Apellido Materno", "Apellido Paterno" };
             double[] gphValues;
             double[] gphPositions;
             string[] gphLabels;
@@ -51,12 +53,23 @@ namespace SchoolForms
             txtWorstStudent.Text = DataHandler.GetWorstStudentName(fullNameColumns);
             txtAverage.Text      = DataHandler.GetValuesAverage().ToString();
 
+            tableLoaded = true;
             nudKeyIndexGenerator_ValueChanged(sender,e);
         }
 
         private void nudKeyIndexGenerator_ValueChanged(object sender, EventArgs e)
         {
-            int algo = (int)nudKeyIndexGenerator.Value;
+            if (true == tableLoaded)
+            {
+                int keyIdx = (int)nudKeyIndexGenerator.Value;
+                DataTable dt = ExcelHandler.getDataTable();
+                int keyCol = dt.Columns.Count - 1;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    dt.Rows[i][keyCol] = DataHandler.GetKeyGenValues(dt.Rows[i], keyGenColumns, keyIdx);
+                }
+                dgvExcelInfo.DataSource = dt;
+            }
         }
     }
 }
