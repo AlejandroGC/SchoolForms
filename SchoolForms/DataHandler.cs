@@ -10,6 +10,7 @@ namespace SchoolForms
         double[]  _positions;
         double[]  _values;
         DataTable _dtGraph;
+
         /// <summary>
         /// Constructor used to load general purpose values for both the generation of Graphs and for the analysis of Data
         /// </summary>
@@ -58,23 +59,28 @@ namespace SchoolForms
             return "Success";
         }
 
-        public string getBestStudentsName()
+        private int[] findColumnIndexes(string[] fullNameColumns)
+        {
+            int[] idxFullNameColumns = new int[fullNameColumns.Length];
+            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
+            {
+                for (int i = 0; i < fullNameColumns.Length; i++)
+                {
+                    if (fullNameColumns[i] == _dtGraph.Columns[colIdx].ColumnName)
+                    {
+                        idxFullNameColumns[i] = colIdx;
+                    }
+                }
+            }
+            return idxFullNameColumns;
+        }
+        public string getBestStudentName(string[] fullNameColumns)
         {
             double highestValue = 0;
             double currentRowValue;
             string bestStudent = "";
-            string[] fullNameLabels = { "Nombres", "Apellido Materno", "Apellido Paterno" };
-            int[] fullNameLabelsidx = new int[3];
-            for (int colIdx = 0; colIdx < _dtGraph.Columns.Count; colIdx++)
-            {
-                for (int i = 0; i < fullNameLabels.Length; i++)
-                {
-                    if (fullNameLabels[i] == _dtGraph.Columns[colIdx].ColumnName)
-                    {
-                        fullNameLabelsidx[i] = colIdx;
-                    }
-                }
-            }
+            int[] idxFullNameColumns;
+            idxFullNameColumns = findColumnIndexes(fullNameColumns);
             for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
             {
                 currentRowValue = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
@@ -82,13 +88,44 @@ namespace SchoolForms
                 {
                     highestValue = currentRowValue;
                     bestStudent = "";
-                    for (int i = 0; i < fullNameLabelsidx.Length; i++)
+                    for (int i = 0; i < idxFullNameColumns.Length; i++)
                     {
-                        bestStudent += " "+(string)_dtGraph.Rows[rowIdx].ItemArray[fullNameLabelsidx[i]]!;
+                        bestStudent += " "+(string)_dtGraph.Rows[rowIdx].ItemArray[idxFullNameColumns[i]]!;
                     }
                 }
             }
             return bestStudent;
+        }
+        public string getWorstStudentName(string[] fullNameColumns)
+        {
+            double lowestValue = 999;
+            double currentRowValue;
+            string worstStudent = "";
+            int[] idxFullNameColumns;
+            idxFullNameColumns = findColumnIndexes(fullNameColumns);
+            for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
+            {
+                currentRowValue = (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+                if (lowestValue > currentRowValue)
+                {
+                    lowestValue = currentRowValue;
+                    worstStudent = "";
+                    for (int i = 0; i < idxFullNameColumns.Length; i++)
+                    {
+                        worstStudent += " " + (string)_dtGraph.Rows[rowIdx].ItemArray[idxFullNameColumns[i]]!;
+                    }
+                }
+            }
+            return worstStudent;
+        }
+        public double getValuesAverage()
+        {
+            double summatoryValues = 0;
+            for (int rowIdx = 0; rowIdx < _dtGraph.Rows.Count; rowIdx++)
+            {
+                summatoryValues += (double)_dtGraph.Rows[rowIdx].ItemArray[_idxColumnValues]!;
+            }
+            return ( summatoryValues / _dtGraph.Rows.Count );
         }
 
         /// <summary>

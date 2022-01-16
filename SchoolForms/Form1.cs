@@ -14,6 +14,7 @@ namespace SchoolForms
         private void tsmiOpen_Click(object sender, EventArgs e)
         {
             string processStatus;
+            string[] fullNameColumns = { "Nombres", "Apellido Materno", "Apellido Paterno" };
             double[] gphValues;
             double[] gphPositions;
             string[] gphLabels;
@@ -46,7 +47,9 @@ namespace SchoolForms
             frmGraph.Plot.SetAxisLimits(yMin: 0);
             frmGraph.Refresh();
 
-            txtBestStudent.Text = DataHandler.getBestStudentsName();
+            txtBestStudent.Text  = DataHandler.getBestStudentName(fullNameColumns);
+            txtWorstStudent.Text = DataHandler.getWorstStudentName(fullNameColumns);
+            txtAverage.Text      = DataHandler.getValuesAverage().ToString();
         }
     }
 }

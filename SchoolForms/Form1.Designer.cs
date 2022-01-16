@@ -106,9 +106,12 @@
             // 
             // dgvExcelInfo
             // 
+            this.dgvExcelInfo.AllowUserToAddRows = false;
+            this.dgvExcelInfo.AllowUserToDeleteRows = false;
             this.dgvExcelInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvExcelInfo.Location = new System.Drawing.Point(0, 3);
             this.dgvExcelInfo.Name = "dgvExcelInfo";
+            this.dgvExcelInfo.ReadOnly = true;
             this.dgvExcelInfo.RowTemplate.Height = 25;
             this.dgvExcelInfo.Size = new System.Drawing.Size(848, 380);
             this.dgvExcelInfo.TabIndex = 2;
