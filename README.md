@@ -6,11 +6,12 @@ SchoolForms is a tool capable of loading 97-03 Excel Workbook Files [*.xls] and 
 ### How to use
 
 You are expected to generate a 97-03 Excel Workbook with the following format
-<img src="https://github.com/alexgc2/SchoolForms/blob/master/docs/SchoolDataManagerOpenFile.png">
+<img src="https://github.com/alexgc2/SchoolForms/blob/master/docs/ExcelSample.png">
 
 Once finished, open the application and click on the tool strip menu item and go to File > Open
+<img src="https://github.com/alexgc2/SchoolForms/blob/master/docs/SchoolDataManagerOpenFile.png">
 Select the Excel File. You then should be able to look something like the following
-<Add Image Here>
+<img src="https://github.com/alexgc2/SchoolForms/blob/master/docs/SuccessfullLoad.png">
 
 ### Features
 - SchoolForms comes with a generated DataTable, capabilites to read the califications of the corresponding students and represent them in a graph that you can access by pressing the Graphs tab
