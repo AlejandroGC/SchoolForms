@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace SchoolForms
 {
-    public partial class Form1 : Form
+    public partial class SchoolDataManager : Form
     {
         ExcelHandler excelHandler;
         DataHandler dataHandler;
@@ -12,7 +12,7 @@ namespace SchoolForms
         string[] fullNameColumns = { "Nombres", "Apellido Materno", "Apellido Paterno" };
         string[] keyGenColumns   = { "Nombres", "Apellido Materno", "Fecha de Nacimiento" };
         bool tableLoaded = false;
-        public Form1()
+        public SchoolDataManager()
         {
             InitializeComponent();
             excelHandler = new ExcelHandler();

@@ -14,11 +14,21 @@ namespace SchoolForms
         string uriWeather = "http://api.weatherstack.com/";
         string patWeather = "fef4e1f4142b0bb9fea87bf29247c68a";
         HttpClient httpClient;
+
+        /// <summary>
+        /// Constructor for the weatherstack API handler
+        /// </summary>
         public WeatherApiHandler()
         {
             httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri(uriWeather);
         }
+        /// <summary>
+        /// [GET] /current endpoint
+        /// Get's the temperature in Celcius of the chosen city
+        /// </summary>
+        /// <param name="city">City to check the weather from</param>
+        /// <returns>numeric temperature in celcius of the searched City</returns>
         public async Task<string> GetWeather(string city)
         {
             string currentWeatherEndpoint = $"current?access_key={patWeather}&query={city}";

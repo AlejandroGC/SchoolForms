@@ -65,6 +65,12 @@ namespace SchoolForms
             }
             return "Success";
         }
+        /// <summary>
+        /// Reads internal DataTable and looks for the student with the worst values, then returns the corresponding
+        /// row contents of the requested columns
+        /// </summary>
+        /// <param name="fullNameColumns">Requested Row columns to be returned from the best student</param>
+        /// <returns>Row elements of the selected columns that correspond to the worst student</returns>
         public string GetBestStudentName(string[] fullNameColumns)
         {
             double highestValue = 0;
@@ -87,6 +93,12 @@ namespace SchoolForms
             }
             return bestStudent;
         }
+        /// <summary>
+        /// Reads internal DataTable and looks for the student with the best values, then returns the corresponding
+        /// row contents of the requested columns
+        /// </summary>
+        /// <param name="fullNameColumns">Requested Row columns to be returned from the best student</param>
+        /// <returns>Row elements of the selected columns that correspond to the best student</returns>
         public string GetWorstStudentName(string[] fullNameColumns)
         {
             double lowestValue = 999;
@@ -109,6 +121,11 @@ namespace SchoolForms
             }
             return worstStudent;
         }
+        /// <summary>
+        /// Reads the entire internal DataTable and makes use of the index of what's considered the column Values to calculate
+        /// an average of the content in said column
+        /// </summary>
+        /// <returns>Average of the content in the Values Column</returns>
         public double GetValuesAverage()
         {
             double summatoryValues = 0;
@@ -118,6 +135,13 @@ namespace SchoolForms
             }
             return ( summatoryValues / _dtGraph.Rows.Count );
         }
+        /// <summary>
+        /// Generates  a specific Key based on the content of a Row
+        /// </summary>
+        /// <param name="Row">Row containing the corresponding data used to generate the key</param>
+        /// <param name="keyGenColumns">Specified columns used for the key generation</param>
+        /// <param name="shiftValue">Numeric value from 0 to 26 that allows you to rotate specific parameters of the generated key</param>
+        /// <returns>string containing the generated key of the row</returns>
         public string GetKeyGenValues(DataRow Row, string[] keyGenColumns, int shiftValue)
         {
             int[] idxKeyGenColumns;

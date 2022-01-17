@@ -1,6 +1,6 @@
 ﻿namespace SchoolForms
 {
-    partial class Form1
+    partial class SchoolDataManager
     {
         /// <summary>
         ///  Required designer variable.
@@ -234,7 +234,7 @@
             this.txtWeather.Size = new System.Drawing.Size(130, 23);
             this.txtWeather.TabIndex = 21;
             // 
-            // Form1
+            // SchoolForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -252,7 +252,7 @@
             this.Controls.Add(this.tabPanel);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "SchoolForms";
             this.Text = "School Data Manager";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
