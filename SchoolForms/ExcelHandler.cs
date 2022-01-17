@@ -26,22 +26,24 @@ namespace SchoolForms
             DataSet dsExcel;
             FileStream fileStream;
             IExcelDataReader excelDataReader;
-
-            fileStream      = File.Open(FilePath, FileMode.Open, FileAccess.Read);
-            excelDataReader = ExcelReaderFactory.CreateBinaryReader(fileStream);
-            excelDataReader.IsFirstRowAsColumnNames = true;
-            dsExcel         = excelDataReader.AsDataSet();
-            dsExcel.Tables[0].Columns.Add("Clave", typeof(string));
-            _excelDataTable = dsExcel.Tables[0];
-
-            if (_excelDataTable == null)
+            try
             {
-                return "Error";
+                fileStream = File.Open(FilePath, FileMode.Open, FileAccess.Read);
+                excelDataReader = ExcelReaderFactory.CreateBinaryReader(fileStream);
+                excelDataReader.IsFirstRowAsColumnNames = true;
+                dsExcel = excelDataReader.AsDataSet();
+                dsExcel.Tables[0].Columns.Add("Clave", typeof(string));
+                _excelDataTable = dsExcel.Tables[0];
+                if (_excelDataTable == null)
+                {
+                    return "Error, the file could not be loaded properly";
+                }
             }
-            else
+            catch (Exception)
             {
-                return "Success";
+                return "Error, the file might be occupied by another process";
             }
+            return "Success";
         }
 
         /// <summary>
