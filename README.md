@@ -6,7 +6,7 @@ SchoolForms is a tool capable of loading 97-03 Excel Workbook Files [*.xls] and 
 ### How to use
 
 You are expected to generate a 97-03 Excel Workbook with the following format
-<Add Image Here>
+<img src="https://github.com/alexgc2/SchoolForms/blob/master/docs/SchoolDataManagerOpenFile.png">
 
 Once finished, open the application and click on the tool strip menu item and go to File > Open
 Select the Excel File. You then should be able to look something like the following
