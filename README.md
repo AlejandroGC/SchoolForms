@@ -1,7 +1,7 @@
 # SchoolForms
 
 ### Summary
-SchoolForms is a tool capable of loading 97-03 Excel Workbook Files [*.xls] and loading the data into it to generate some reporting capabilities
+SchoolForms is a tool capable of loading 97-03 Excel Workbook Files (*.xls) and loading the data into it to generate some reporting capabilities
 
 ### How to use
 
