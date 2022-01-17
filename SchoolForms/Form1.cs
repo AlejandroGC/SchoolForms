@@ -1,17 +1,22 @@
+using SchoolForms.JsonObjects;
 using System.Data;
+using System.Diagnostics;
 
 namespace SchoolForms
 {
     public partial class Form1 : Form
     {
-        ExcelHandler ExcelHandler;
-        DataHandler DataHandler;
+        ExcelHandler excelHandler;
+        DataHandler dataHandler;
+        WeatherApiHandler weatherApi;
         string[] fullNameColumns = { "Nombres", "Apellido Materno", "Apellido Paterno" };
         string[] keyGenColumns   = { "Nombres", "Apellido Materno", "Fecha de Nacimiento" };
         bool tableLoaded = false;
         public Form1()
         {
             InitializeComponent();
+            excelHandler = new ExcelHandler();
+            weatherApi   = new WeatherApiHandler();
         }
 
         private void tsmiOpen_Click(object sender, EventArgs e)
@@ -20,38 +25,39 @@ namespace SchoolForms
             double[] gphValues;
             double[] gphPositions;
             string[] gphLabels;
-            ExcelHandler  = new ExcelHandler();
+
+            // Load Excel File into the solution
             if (ofdAbrir.ShowDialog() == DialogResult.OK)
             {
-                processStatus = ExcelHandler.LoadExcelFile(ofdAbrir.FileName);
+                processStatus = excelHandler.LoadExcelFile(ofdAbrir.FileName);
                 if (processStatus != "Success")
                 {
-                    // TODO: throw an error/warning letting the user know the content
-                    // is not in the expected format
+                    MessageBox.Show(processStatus, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                dgvExcelInfo.DataSource = ExcelHandler.getDataTable();
+                dgvExcelInfo.DataSource = excelHandler.getDataTable();
             }
-            DataHandler   = new DataHandler(ExcelHandler.getDataTable(), "Nombres", "Calificacion");
-            processStatus = DataHandler.LoadGraphicsData();
+            // Generate calculations for the Graphs generation
+            dataHandler   = new DataHandler(excelHandler.getDataTable(), "Nombres", "Calificacion");
+            processStatus = dataHandler.LoadGraphicsData();
             if (processStatus != "Success")
             {
-                // TODO: throw an error/warning letting the user know the content is not
-                // in the expected format
+                MessageBox.Show(processStatus, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            gphValues    = DataHandler.GetGraphValues();
-            gphPositions = DataHandler.GetGraphPositions();
-            gphLabels    = DataHandler.GetGraphLabels();
+            gphValues    = dataHandler.GetGraphValues();
+            gphPositions = dataHandler.GetGraphPositions();
+            gphLabels    = dataHandler.GetGraphLabels();
 
             frmGraph.Plot.AddBar(gphValues, gphPositions);
             frmGraph.Plot.XTicks(gphPositions, gphLabels);
             frmGraph.Plot.SetAxisLimits(yMin: 0);
             frmGraph.Refresh();
 
-            txtBestStudent.Text  = DataHandler.GetBestStudentName(fullNameColumns);
-            txtWorstStudent.Text = DataHandler.GetWorstStudentName(fullNameColumns);
-            txtAverage.Text      = DataHandler.GetValuesAverage().ToString();
+            // Show the result
+            txtBestStudent.Text  = dataHandler.GetBestStudentName(fullNameColumns);
+            txtWorstStudent.Text = dataHandler.GetWorstStudentName(fullNameColumns);
+            txtAverage.Text      = dataHandler.GetValuesAverage().ToString();
 
             tableLoaded = true;
             nudKeyIndexGenerator_ValueChanged(sender,e);
@@ -62,13 +68,26 @@ namespace SchoolForms
             if (true == tableLoaded)
             {
                 int keyIdx = (int)nudKeyIndexGenerator.Value;
-                DataTable dt = ExcelHandler.getDataTable();
+                DataTable dt = excelHandler.getDataTable();
                 int keyCol = dt.Columns.Count - 1;
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    dt.Rows[i][keyCol] = DataHandler.GetKeyGenValues(dt.Rows[i], keyGenColumns, keyIdx);
+                    dt.Rows[i][keyCol] = dataHandler.GetKeyGenValues(dt.Rows[i], keyGenColumns, keyIdx);
                 }
                 dgvExcelInfo.DataSource = dt;
+            }
+        }
+
+        private async void btnWeather_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var weather = await weatherApi.GetWeather("Hermosillo");
+                txtWeather.Text = $"{weather}°C";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Something went wrong", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

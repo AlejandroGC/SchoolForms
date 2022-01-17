@@ -45,6 +45,8 @@
             this.txtAverage = new System.Windows.Forms.TextBox();
             this.nudKeyIndexGenerator = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnWeather = new System.Windows.Forms.Button();
+            this.txtWeather = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.tabPanel.SuspendLayout();
             this.tp1RawData.SuspendLayout();
@@ -199,7 +201,7 @@
             this.nudKeyIndexGenerator.Size = new System.Drawing.Size(130, 23);
             this.nudKeyIndexGenerator.TabIndex = 18;
             this.nudKeyIndexGenerator.Value = new decimal(new int[] {
-            24,
+            3,
             0,
             0,
             0});
@@ -214,11 +216,31 @@
             this.label4.TabIndex = 19;
             this.label4.Text = "Key Index Generator";
             // 
+            // btnWeather
+            // 
+            this.btnWeather.Location = new System.Drawing.Point(865, 296);
+            this.btnWeather.Name = "btnWeather";
+            this.btnWeather.Size = new System.Drawing.Size(130, 42);
+            this.btnWeather.TabIndex = 20;
+            this.btnWeather.Text = "Request Weather Forecast";
+            this.btnWeather.UseVisualStyleBackColor = true;
+            this.btnWeather.Click += new System.EventHandler(this.btnWeather_Click);
+            // 
+            // txtWeather
+            // 
+            this.txtWeather.Location = new System.Drawing.Point(865, 353);
+            this.txtWeather.Name = "txtWeather";
+            this.txtWeather.ReadOnly = true;
+            this.txtWeather.Size = new System.Drawing.Size(130, 23);
+            this.txtWeather.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 441);
+            this.Controls.Add(this.txtWeather);
+            this.Controls.Add(this.btnWeather);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.nudKeyIndexGenerator);
             this.Controls.Add(this.txtAverage);
@@ -263,5 +285,7 @@
         private TextBox txtAverage;
         private NumericUpDown nudKeyIndexGenerator;
         private Label label4;
+        private Button btnWeather;
+        private TextBox txtWeather;
     }
 }

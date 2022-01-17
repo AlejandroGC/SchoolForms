@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="2.1.2.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="ScottPlot.WinForms" Version="4.1.29" />
   </ItemGroup>
 
